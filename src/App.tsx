@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
 
-const App = () => {
-  
+const App = (): JSX.Element => {
+  const [item, setItem] = useState(false);
 
-  return (
-      <div>
+  useEffect(() => {
+    setItem(!item);
+  }, [item]);
 
-      </div>
-  );
+  return <div></div>;
 };
 
 export default App;
