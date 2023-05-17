@@ -1,13 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { multiPly } from "./utils-ts/log-in";
+import TimerView from "./components/TimerView";
+import Counter from "./components/Counter";
 
 const App = (): JSX.Element => {
   const [item, setItem] = useState(2);
   const [data, setData] = useState();
-
-  // useEffect(() => {
-  //   setItem(!item);
-  // }, [item]);
 
   const toggle = useCallback((): void => {
     setItem((p) => multiPly(p));
@@ -23,7 +21,8 @@ const App = (): JSX.Element => {
 
   return (
     <div>
-      fdf
+      <TimerView />
+      <Counter />
       <div>{item}</div>
       <button onClick={toggle}></button>
       <div>fd</div>
