@@ -1,10 +1,17 @@
 import { makeAutoObservable } from "mobx";
 
-class Timer {
+interface ITimer {
+  increaseTimer: () => void;
+  _name: string;
+}
+class Timer implements ITimer {
   secondsPassed = 0;
+
+  _name = "";
 
   constructor() {
     makeAutoObservable(this);
+    this._name = "45";
   }
 
   increaseTimer(): void {

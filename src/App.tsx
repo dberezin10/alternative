@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { multiPly } from "./utils-ts/log-in";
 import TimerView from "./components/TimerView";
 import Counter from "./components/Counter";
+import { DatePicker } from "antd";
 
 const App = (): JSX.Element => {
   const [item, setItem] = useState(2);
@@ -21,6 +22,7 @@ const App = (): JSX.Element => {
 
   return (
     <div>
+      <DatePicker />
       <TimerView />
       <Counter />
       <div>{item}</div>
