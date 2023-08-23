@@ -1,7 +1,4 @@
-import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import axios, { AxiosResponse } from "axios";
-import httpClient from "../utils/httpClient";
 import TodosServices from "../services/TodosServices";
 
 export interface ITodoResponse {
@@ -22,23 +19,16 @@ const Todos = (): JSX.Element => {
 
   if (isLoading) return <h1>Loading...</h1>;
 
-  console.log(
-    "todoData",
-    todoData?.map((el) => el)
-  );
+  if (error) return <h1>An error has occurred:</h1>;
 
-  if (error) return <h1>An error has occurred: + {error.message}</h1>;
   return (
     <div>
       <h1>TODOS LIST</h1>
       {todoData?.map((el) => (
         <p key={el.id}>{el.title}</p>
       ))}
-      {/*<h1>{todoData?.title}</h1>*/}
-      {/*{isSuccess ? todoData?.title : ""}*/}
-      {/*<p>{todoData?.id}</p>*/}
     </div>
   );
 };
 
-export default Todos;
+export { Todos };
