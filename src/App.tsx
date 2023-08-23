@@ -3,6 +3,7 @@ import { multiPly } from "./utils-ts/log-in";
 import TimerView from "./components/TimerView";
 import Counter from "./components/Counter";
 import { DatePicker } from "antd";
+import Todos from "./components/Todos";
 
 const App = (): JSX.Element => {
   const [item, setItem] = useState(2);
@@ -25,6 +26,7 @@ const App = (): JSX.Element => {
       <DatePicker />
       <TimerView />
       <Counter />
+      <Todos />
       <div>{item}</div>
       <button onClick={toggle}></button>
       <div>fd</div>
