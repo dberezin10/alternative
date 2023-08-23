@@ -6,35 +6,37 @@ import TodosServices from "../services/TodosServices";
 
 export interface ITodoResponse {
   id: number;
+  title: string;
+  completed: boolean;
 }
-
-const todoId = 5;
 
 const Todos = (): JSX.Element => {
   const {
     isLoading,
-    isSuccess,
     error,
     data: todoData,
-  } = useQuery<AxiosResponse<ITodoResponse[]>>({
+  } = useQuery({
     queryKey: ["todos"],
     queryFn: TodosServices.getAllIdTodos,
-    select: (res: AxiosResponse) => {
-      return res?.data;
-    },
   });
 
   if (isLoading) return <h1>Loading...</h1>;
 
-  console.log("todoData", todoData);
+  console.log(
+    "todoData",
+    todoData?.map((el) => el)
+  );
 
   if (error) return <h1>An error has occurred: + {error.message}</h1>;
   return (
     <div>
       <h1>TODOS LIST</h1>
-      <h1>{todoData?.title}</h1>
-      {isSuccess ? todoData?.title : ""}
-      <p>{todoData?.id}</p>
+      {todoData?.map((el) => (
+        <p key={el.id}>{el.title}</p>
+      ))}
+      {/*<h1>{todoData?.title}</h1>*/}
+      {/*{isSuccess ? todoData?.title : ""}*/}
+      {/*<p>{todoData?.id}</p>*/}
     </div>
   );
 };
