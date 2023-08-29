@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import TodosServices from "../services/TodosServices";
-import { useState } from "react";
+import { SyntheticEvent, useState } from "react";
 
 export interface ITodoResponse {
   id: number;
@@ -26,7 +26,7 @@ const Todos = (): JSX.Element => {
 
   const { mutate } = useMutation({
     mutationKey: ["create todo"],
-    mutationFn: TodosServices.create(),
+    mutationFn: (value: string) => TodosServices.create(value),
   });
 
   // console.log("createTodo", createTodo);
@@ -35,7 +35,7 @@ const Todos = (): JSX.Element => {
 
   if (error) return <h1>An error has occurred:</h1>;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: SyntheticEvent): void => {
     e.preventDefault();
     console.log("value", value);
     mutate(value);
