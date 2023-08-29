@@ -15,6 +15,7 @@ const Todos = (): JSX.Element => {
   } = useQuery({
     queryKey: ["todos"],
     queryFn: TodosServices.getAllIdTodos,
+    select: ({ data }) => data,
   });
 
   if (isLoading) return <h1>Loading...</h1>;
