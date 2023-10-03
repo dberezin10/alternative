@@ -4,6 +4,7 @@ import TimerView from "./components/TimerView";
 import Counter from "./components/Counter";
 import { DatePicker } from "antd";
 import { Todos } from "./components/Todos";
+import PracticeOop from "./components/practiceOop";
 
 const App = (): JSX.Element => {
   return (
@@ -13,6 +14,7 @@ const App = (): JSX.Element => {
       <Counter />
       <Todos />
       <p>---- \\ ----</p>
+      <PracticeOop />
     </div>
   );
 };
