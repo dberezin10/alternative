@@ -1,42 +1,70 @@
-import { useTodos } from "../hooks/useTodos";
-import { useState } from "react";
-import { set } from "mobx";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import TodosServices from "../services/TodosServices";
+import { SyntheticEvent, useState } from "react";
 
 export interface ITodoResponse {
   id: number;
+  userId: number;
   title: string;
   completed: boolean;
 }
 
-const Todos = (): JSX.Element => {
-  const { isLoading, error, data: todoData } = useTodos();
+export type ICreateTodo = Omit<ITodoResponse, "id">;
 
-  const [title, setTitle] = useState("123");
+const Todos = (): JSX.Element => {
+  const {
+    isLoading,
+    error,
+    data: todoData,
+  } = useQuery({
+    queryKey: ["t"],
+    queryFn: TodosServices.getAllIdTodos,
+    select: ({ data }) => data,
+  });
+
+  const [value, setValue] = useState("");
+
+  const { mutate } = useMutation({
+    mutationKey: ["create todo"],
+    mutationFn: (value: string) => TodosServices.create(value),
+  });
+
+  // console.log("createTodo", createTodo);
 
   if (isLoading) return <h1>Loading...</h1>;
 
   if (error) return <h1>An error has occurred:</h1>;
 
-  const handleSubmit = (e, data: any) => {
+  const handleSubmit = (e: SyntheticEvent): void => {
     e.preventDefault();
-    console.log("title", title);
+    console.log("value", value);
+    mutate(value);
   };
 
   return (
-    <div>
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
+        gap: 10,
+        border: "1px solid black",
+      }}
+    >
       <h1>TODOS LIST</h1>
       {todoData?.map((el) => (
         <p key={el.id}>{el.title}</p>
       ))}
-      <h2>FORM TODOS</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <button>Post form</button>
-      </form>
+
+      <h2>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+          />
+          <button>Clicked</button>
+        </form>
+      </h2>
     </div>
   );
 };
