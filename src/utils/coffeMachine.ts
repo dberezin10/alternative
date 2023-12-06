@@ -33,6 +33,7 @@ class Phillips extends CoffeeMachine implements IPhillips {
   public weight = 0;
   constructor(w: number, weight: number, name?: string) {
     super(w, name);
+    this._power = w;
     this.weight = weight;
   }
 
