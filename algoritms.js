@@ -130,13 +130,22 @@ const uniqueFructs = (lists) => {
 console.log("uniqueFructs fructs, result: ", uniqueFructs(fructs));
 
 const students = [
-  { name: "Alex", age: 20 },
-  { name: "Mike", age: 24 },
-  { name: "Masha", age: 20 },
-  { name: "stanislav", age: 18 },
+  { name: "Alex", age: 20, group: 1 },
+  { name: "Mike", age: 24, group: 1 },
+  { name: "Masha", age: 20, group: 2 },
+  { name: "Stanislav", age: 18, group: 3 },
+  { name: "Ivan", age: 40, group: 3 },
 ];
+// 1)
+// groupStudents
+// {
+//     '20': [{ name: "Alex", age: 20 }, { name: "Masha", age: 20 }]
+//     '18': [{ name: "stanislav", age: 18 }]
+//     '24': [{ name: "Mike", age: 24 }]
+// }
 
-//
+// 2) groupStudentsSum reduce and count age
+// groupStudents
 // {
 //     '20': [{ name: "Alex", age: 20 }, { name: "Masha", age: 20 }]
 //     '18': [{ name: "stanislav", age: 18 }]
@@ -167,6 +176,19 @@ const groupStudents = (lists) => {
 
   return grouped;
 };
+
+const groupStudentsSum = (students) => {
+  return students.reduce((acc, route) => {
+    if (acc[route.group]) {
+      acc[route.group] = acc[route.group] + route.age;
+    } else {
+      acc[route.group] = route.age;
+    }
+    return acc;
+  }, {});
+};
+
+groupStudentsSum(students);
 
 console.log("groupStudents students, result: ", groupStudents(students));
 
@@ -200,3 +222,65 @@ const friends = [
   { name: "Masha", pizza: ["apple"] },
   { name: "stanislav", pizza: ["fructs", "meat"] },
 ];
+
+// Поиск в ширину в графе, используется fifo, первым вошел первым вышел
+
+const graph = {};
+graph.a = ["b", "c"];
+graph.b = ["f"];
+graph.c = ["d", "e"];
+graph.d = ["f"];
+graph.e = ["f"];
+graph.f = ["g"];
+
+const breadthSearch = (graph, start, end) => {
+  let queue = [];
+  queue.push(start);
+
+  while (queue.length > 0) {
+    const current = queue.shift();
+
+    if (!graph[current]) {
+      graph[current] = [];
+    }
+
+    if (graph[current].includes(end)) {
+      return true;
+    } else {
+      queue = [...queue, ...graph[current]];
+    }
+  }
+
+  return false;
+};
+
+console.log("breadthSearch", breadthSearch(graph, "a", "g"));
+
+const breadthSearch2 = (graph, start, end) => {
+  let queue = [];
+  queue.push([start]);
+
+  while (queue.length > 0) {
+    const path = queue.shift();
+    const current = path[path.length - 1];
+    console.log("current", current);
+
+    if (!graph[current]) {
+      graph[current] = [];
+    }
+
+    if (current === end) {
+      return path;
+    } else {
+      for (let neighbor of graph[current]) {
+        if (!path.includes(neighbor)) {
+          queue.push([...path, neighbor]);
+        }
+      }
+    }
+  }
+
+  return null;
+};
+
+console.log("breadthSearch2", breadthSearch2(graph, "a", "g"));
