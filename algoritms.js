@@ -46,6 +46,29 @@ const searchAllId = (obj, searchId) => {
 
 console.log('searchAllId(obj, "id");', searchAllId(obj, "id"));
 
+const iteration = (tree) => {
+  if (!tree.length) {
+    return 0;
+  }
+
+  let sum = 0;
+  let stack = [];
+
+  tree.forEach((item) => stack.push(item));
+  while (stack.length) {
+    const node = stack.pop();
+    sum += node.id;
+
+    if (node.children) {
+      node.children.forEach((item) => stack.push(item));
+    }
+  }
+
+  return sum;
+};
+
+iteration([obj]);
+
 const str = "hello, my name is Ivan";
 
 const reverseStr = (str) => {
@@ -270,6 +293,7 @@ const breadthSearch2 = (graph, start, end) => {
     }
 
     if (current === end) {
+      console.log("path", path);
       return path;
     } else {
       for (let neighbor of graph[current]) {
