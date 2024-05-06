@@ -5,7 +5,7 @@ interface ITimer {
   _name: string;
 }
 class Timer implements ITimer {
-  secondsPassed = 0;
+  secondsPassed = 1;
 
   _name = "";
 
