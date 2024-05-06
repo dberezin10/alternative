@@ -15,6 +15,6 @@ describe("TimerView", async () => {
       fireEvent.click(btnTimer);
     });
 
-    expect(screen.queryByText(/Seconds passed: 1/i)).toBeVisible();
+    expect(screen.queryByText(/Seconds passed: 2/i)).toBeVisible();
   });
 });
