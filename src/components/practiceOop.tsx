@@ -1,7 +1,7 @@
 import React from "react";
 import { CoffeeMachine, Phillips } from "../utils/coffeMachine";
 
-const PracticeOop = (): JSX.Element => {
+const PracticeOop = (): JSX.Element | null => {
   const coffeeMachine = new CoffeeMachine(100);
   coffeeMachine.power = 500;
   console.log("coffeeMachine.power", coffeeMachine.power);
@@ -11,7 +11,7 @@ const PracticeOop = (): JSX.Element => {
   console.log("coffeeMachinePhillips.power", coffeeMachinePhillips.power);
   console.log("coffeeMachinePhillips.power", coffeeMachinePhillips.getWeight());
 
-  return <div>ООП Практика</div>;
+  return null;
 };
 
 export default PracticeOop;

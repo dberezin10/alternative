@@ -13,7 +13,6 @@ const App = (): JSX.Element => {
       <TimerView />
       <Counter />
       <Todos />
-      <p>---- \\ ----</p>
       <PracticeOop />
     </div>
   );
