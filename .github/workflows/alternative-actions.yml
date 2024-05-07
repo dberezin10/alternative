@@ -12,18 +12,12 @@ jobs:
       matrix:
         node-version: [ 18.x ]
     steps:
-      - uses: actions/checkout@v4
-      - name: Staring Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: install modules
-        run: npm install
-      - name: build project
-        run: npm run build
-      - name: unit test
-        run: npm run test
-      - name: unit test coverage
-        run: npm run coverage
-
-
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /root/alternative
+            npm install
