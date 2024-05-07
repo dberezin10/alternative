@@ -4,7 +4,7 @@ import { act, fireEvent, render } from "@testing-library/react";
 import TimerView from "../TimerView";
 
 describe("TimerView", async () => {
-  it("should render TimerView", () => {
+  it("should render TimerView with step", () => {
     const screen = render(<TimerView />);
 
     const btnTimer = screen.queryByText("Click timer") as HTMLButtonElement;
