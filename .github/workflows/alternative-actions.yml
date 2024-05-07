@@ -1,4 +1,4 @@
-name: GitHub Actions Demo
+name: Alternative actions
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on:
   push:
@@ -23,5 +23,7 @@ jobs:
         run: npm run build
       - name: unit test
         run: npm run test
+      - name: unit test coverage
+        run: npm run coverage
 
 
