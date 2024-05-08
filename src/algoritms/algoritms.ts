@@ -101,7 +101,15 @@ const memoized = memo(sum);
 
 console.log("memoized", memoized(3));
 
-let anagrams = ["nap", "teachers", "cheaters", "PAN", "ear", "era", "hectares"];
+const anagrams = [
+  "nap",
+  "teachers",
+  "cheaters",
+  "PAN",
+  "ear",
+  "era",
+  "hectares",
+];
 
 const cleanAnagram = (anagrams) => {
   const result = new Map();
@@ -280,7 +288,7 @@ const breadthSearch = (graph, start, end) => {
 console.log("breadthSearch", breadthSearch(graph, "a", "g"));
 
 const breadthSearch2 = (graph, start, end) => {
-  let queue = [];
+  const queue = [];
   queue.push([start]);
 
   while (queue.length > 0) {
@@ -296,7 +304,7 @@ const breadthSearch2 = (graph, start, end) => {
       console.log("path", path);
       return path;
     } else {
-      for (let neighbor of graph[current]) {
+      for (const neighbor of graph[current]) {
         if (!path.includes(neighbor)) {
           queue.push([...path, neighbor]);
         }
@@ -308,3 +316,61 @@ const breadthSearch2 = (graph, start, end) => {
 };
 
 console.log("breadthSearch2", breadthSearch2(graph, "a", "g"));
+
+// Алгоритм Дейкстры, поиск кратчайшего пути
+
+const graph = {};
+graph.a = { b: 2, c: 1 };
+graph.b = { f: 7 };
+graph.c = { d: 5, e: 2 };
+graph.d = { f: 2 };
+graph.e = { f: 1 };
+graph.f = { g: 1 };
+graph.g = {};
+
+const shortPath = (graph, start, end) => {
+  const costs = {}; // кратчайшие пути
+  const processed = []; // проверенные узлы
+  let neighbors = {}; // соседние вершины рассматриваемого узла
+
+  Object.keys(graph).forEach((node) => {
+    if (node !== start) {
+      const value = graph[start][node];
+      costs[node] = value || 1000000;
+    }
+  });
+
+  let node = findNodeLowestCost(costs, processed);
+
+  while (node) {
+    const cost = costs[node];
+    neighbors = graph[node];
+    Object.keys(neighbors).forEach((neighbor) => {
+      const newCost = cost + neighbors[neighbor];
+      if (newCost < costs[neighbor]) {
+        costs[neighbor] = newCost;
+      }
+    });
+    processed.push(node);
+    node = findNodeLowestCost(costs, processed);
+  }
+
+  return costs;
+};
+
+function findNodeLowestCost(costs, processed) {
+  let lowestCost = 1000000;
+  let lowestNode;
+
+  Object.keys(costs).forEach((node) => {
+    const cost = costs[node];
+    if (cost < lowestCost && !processed.includes(node)) {
+      lowestCost = cost;
+      lowestNode = node;
+    }
+  });
+
+  return lowestNode;
+}
+
+console.log("shortPath(graph, 'a', 'g')", shortPath(graph, "a", "g"));
