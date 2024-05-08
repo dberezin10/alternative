@@ -29,8 +29,6 @@ const Todos = (): JSX.Element => {
     mutationFn: (value: string) => TodosServices.create(value),
   });
 
-  // console.log("createTodo", createTodo);
-
   if (isLoading) return <h1>Loading...</h1>;
 
   if (error) return <h1>An error has occurred:</h1>;
@@ -42,17 +40,12 @@ const Todos = (): JSX.Element => {
   };
 
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        gap: 10,
-        border: "1px solid black",
-      }}
-    >
-      <h1>TODOS LIST</h1>
+    <div style={{ padding: "10px", border: "1px solid #ccc" }}>
+      <h1>TODOS LIST!!TODOS LIST!!!TODOS LIST!!!TODOS LIST!!!TODOS LIST!!!!</h1>
       {todoData?.map((el) => (
-        <p key={el.id}>{el.title}</p>
+        <ul key={el.id}>
+          <li>{el.title}</li>
+        </ul>
       ))}
 
       <h2>
@@ -62,9 +55,10 @@ const Todos = (): JSX.Element => {
             value={value}
             onChange={(e) => setValue(e.target.value)}
           />
-          <button>Clicked</button>
+          <button>submit</button>
         </form>
       </h2>
+      <h3> Result input: {value}</h3>
     </div>
   );
 };
