@@ -4,7 +4,9 @@ import timer from "../store/Timer";
 const TimerView = observer(() => {
   return (
     <div>
-      <h1>Timer view</h1>
+      <h1 style={{ color: "green", textDecoration: "underline" }}>
+        Timer view
+      </h1>
       <span>Seconds passed: {timer.secondsPassed}</span>
       {timer._name}
       <button onClick={(): void => timer.increaseTimer()}>Click timer</button>
