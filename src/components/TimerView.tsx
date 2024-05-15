@@ -6,7 +6,7 @@ const TimerView = observer(() => {
     <div>
       <h1
         style={{
-          color: "red",
+          color: "black",
           textDecoration: "underline",
           fontStyle: "italic",
           background: "red",
