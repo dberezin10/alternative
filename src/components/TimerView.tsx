@@ -9,6 +9,7 @@ const TimerView = observer(() => {
           color: "red",
           textDecoration: "underline",
           fontStyle: "italic",
+          background: "red",
         }}
       >
         Timer view
