@@ -4,7 +4,13 @@ import timer from "../store/Timer";
 const TimerView = observer(() => {
   return (
     <div>
-      <h1 style={{ color: "green", textDecoration: "underline" }}>
+      <h1
+        style={{
+          color: "gold",
+          textDecoration: "underline",
+          fontStyle: "italic",
+        }}
+      >
         Timer view
       </h1>
       <span>Seconds passed: {timer.secondsPassed}</span>

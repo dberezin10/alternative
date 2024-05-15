@@ -25,5 +25,6 @@ jobs:
             source ~/.nvm/nvm.sh
             npm install
             npm run build
+            rm -r ../../var/www/dist/
             mv dist/ ../../var/www/
             sudo service nginx restart
