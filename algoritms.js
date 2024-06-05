@@ -36,7 +36,7 @@ const searchAllId = (obj, searchId) => {
   return Object.entries(obj).reduce((acc, [key, value]) => {
     if (searchId === key) {
       acc.push(value);
-    } else if (typeof value === "object") {
+    } else if (value instanceof Object) {
       acc.push(...searchAllId(value, searchId));
     }
 

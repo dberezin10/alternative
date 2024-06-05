@@ -1,83 +1,40 @@
 import React, { useState } from "react";
+import useThrottle from "./shared/hooks/useThrottle";
+import { TUser } from "./shared/types/user";
+import { receiveRandomUser } from "./services/user";
+import UserInfo from "./components/UserInfo/UserInfo";
+import Button from "./components/Buttons/Button";
 
-const URL = "https://jsonplaceholder.typicode.com/users";
+const NodaSoft = (): JSX.Element => {
+  const [user, setUser] = useState<TUser | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
-type Company = {
-  bs: string;
-  catchPhrase: string;
-  name: string;
-};
-
-type User = {
-  id: number;
-  email: string;
-  name: string;
-  phone: string;
-  username: string;
-  website: string;
-  company: Company;
-  address: any;
-};
-
-interface IButtonProps {
-  onClick: any;
-}
-
-function Button({ onClick }: IButtonProps): JSX.Element {
-  return (
-    <button type="button" onClick={onClick}>
-      get random user
-    </button>
-  );
-}
-
-interface IUserInfoProps {
-  user: User;
-}
-
-function UserInfo({ user }: IUserInfoProps): JSX.Element {
-  return (
-    <table>
-      <thead>
-        <tr>
-          <th>Username</th>
-          <th>Phone number</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{user.name}</td>
-          <td>{user.phone}</td>
-        </tr>
-      </tbody>
-    </table>
-  );
-}
-
-function NodaSoft(): JSX.Element {
-  const [item, setItem] = useState<Record<number, User>>(null);
-
-  const receiveRandomUser = async () => {
-    const id = Math.floor(Math.random() * (10 - 1)) + 1;
-    const response = await fetch(`${URL}/${id}`);
-    const _user = (await response.json()) as User;
-    setItem(_user);
-  };
-
-  const handleButtonClick = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    event.stopPropagation();
-    receiveRandomUser();
-  };
+  const handleGetUser = useThrottle((): void => {
+    setIsLoading(true);
+    receiveRandomUser()
+      .then((data) => {
+        if (user?.id === data?.id) {
+          return false;
+        }
+        if (data) {
+          setUser(data);
+        } else {
+          setUser(null);
+        }
+      })
+      .catch((error) => setError(error.message))
+      .finally(() => setIsLoading(false));
+  }, 500);
 
   return (
     <div>
-      <header>Get a random user</header>
-      <Button onClick={handleButtonClick} />
-      <UserInfo user={item} />
+      <h3>Get a random user</h3>
+      <Button isLoading={isLoading} onClick={handleGetUser} />
+      {error && <p>Произошла следующая ошибка - {error}</p>}
+      {isLoading ? "loading..." : <UserInfo user={user} />}
     </div>
   );
-}
+};
 
 export default NodaSoft;
