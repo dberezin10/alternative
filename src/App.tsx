@@ -5,7 +5,6 @@ import Counter from "./components/Counter";
 import { DatePicker } from "antd";
 import { Todos } from "./components/Todos";
 import PracticeOop from "./components/practiceOop";
-import NodaSoft from "./components/nodaSoft/NodaSoft";
 
 const App = (): JSX.Element => {
   return (
@@ -15,8 +14,6 @@ const App = (): JSX.Element => {
       <Counter />
       <Todos />
       <PracticeOop />
-
-      <NodaSoft />
     </div>
   );
 };
