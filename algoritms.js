@@ -424,3 +424,20 @@ const maxSubarraySum = (arr) => {
 const arrayKadan = [-2, 1, -3, 4, -1, 2, 1, -5, 4];
 console.log(maxSubarraySum(arrayKadan));
 ``; // Вернет 6
+
+/// AAAABBBBCCdDD --> ABCdD
+const uniqueResult = (str) => {
+  const result = [];
+  let flug = null;
+
+  for (let key of str) {
+    if (flug !== key) {
+      result.push(key);
+      flug = key;
+    }
+  }
+
+  return result.join("");
+};
+
+uniqueResult("AAAABBBBCCdDD");
