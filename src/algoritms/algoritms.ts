@@ -36,7 +36,7 @@ const searchAllId = (obj, searchId) => {
   return Object.entries(obj).reduce((acc, [key, value]) => {
     if (searchId === key) {
       acc.push(value);
-    } else if (typeof value === "object") {
+    } else if (value instanceof Object) {
       acc.push(...searchAllId(value, searchId));
     }
 
@@ -401,3 +401,92 @@ const binarySearch = (sortedArray, key) => {
 const sortedArray = [1, 3, 5, 7, 9, 11, 13, 15, 17];
 const targetElement = 9;
 const index = binarySearch(sortedArray, targetElement);
+
+// Реализуйте функцию createAccessChecker(), которая принимает на вход объект с разрешениями для ролей и возвращает функцию, проверяющую, есть ли у пользователя доступ к ресурсу.
+//
+//     type UserRole = 'admin' | 'user' | 'guest';
+// type UserResource = 'document' | 'user' | 'adminPanel';
+//
+// const userRolePermissions: Record<UserRole, Array<UserResource>> = {
+//     admin: ['document', 'user', 'adminPanel'],
+//     user: ['document', 'user'],
+//     guest: ['document'],
+// };
+//
+// const checkUserAccess = createAccessChecker<UserRole, UserResource>(userRolePermissions);
+//
+// const isAdminAllowed = checkUserAccess('admin', 'adminPanel');
+// console.log(isAdminAllowed); // => true
+//
+// const isUserAllowed = checkUserAccess('user', 'adminPanel');
+// console.log(isUserAllowed);
+
+// Напишите функцию, которая убирает подчеркивание и тире из слова и делает следующую букву заглавной
+const strNotCamelCase = "what-a-nice_today";
+
+const formatToCamelCase = (str) => {
+  const arr = [...str];
+  let firstElementAfterSymbol = false;
+
+  const result = [];
+
+  arr.forEach((item) => {
+    if (item !== "_" && item !== "-") {
+      if (firstElementAfterSymbol) {
+        result.push(item.toUpperCase());
+        firstElementAfterSymbol = false;
+      } else {
+        result.push(item);
+      }
+    } else {
+      firstElementAfterSymbol = true;
+    }
+  });
+
+  return result.join("");
+};
+
+formatToCamelCase(strNotCamelCase);
+
+// Напишите функцию, которая находит уникальный элемент в массиве чисел, где все числа повторяются дважды, за исключением одного.
+const findUniqueElement = (array) => {
+  const unique = {};
+
+  array.forEach((item) => {
+    if (unique[item]) {
+      unique[item] = (unique[item] || 0) + 1;
+    } else {
+      unique[item] = 1;
+    }
+  });
+
+  for (let key in unique) {
+    if (unique[key] === 1) {
+      return key;
+    }
+  }
+
+  return null;
+};
+
+const arrayExample = [1, 2, 3, 4, 1, 2, 3];
+console.log(findUniqueElement(arrayExample));
+
+// Напишите функцию для нахождения непрерывного подмассива в массиве целых чисел, который имеет максимальную сумму элементов.
+//
+// Примеры кода с реализацией алгоритма Кадана (Kadane's algorithm):
+
+const maxSubarraySum = (arr) => {
+  let maxEndingHere = arr[0];
+  let maxSoFar = arr[0];
+  for (let i = 1; i < arr.length; i++) {
+    maxEndingHere = Math.max(arr[i], maxEndingHere + arr[i]);
+    console.log("maxSoFar", maxSoFar);
+    maxSoFar = Math.max(maxSoFar, maxEndingHere);
+  }
+  return maxSoFar;
+};
+
+const arrayKadan = [-2, 1, -3, 4, -1, 2, 1, -5, 4];
+console.log(maxSubarraySum(arrayKadan));
+``; // Вернет 6
