@@ -52,7 +52,7 @@ const iteration = (tree) => {
   }
 
   let sum = 0;
-  let stack = [];
+  const stack = [];
 
   tree.forEach((item) => stack.push(item));
   while (stack.length) {
@@ -380,7 +380,7 @@ const binarySearch = (sortedArray, key) => {
   let end = sortedArray.length - 1;
 
   while (start <= end) {
-    let middle = Math.floor((start + end) / 2);
+    const middle = Math.floor((start + end) / 2);
 
     if (sortedArray[middle] === key) {
       // found the key
@@ -460,7 +460,7 @@ const findUniqueElement = (array) => {
     }
   });
 
-  for (let key in unique) {
+  for (const key in unique) {
     if (unique[key] === 1) {
       return key;
     }
